@@ -69,13 +69,14 @@ export class RegisterComponent {
 
     const { confirmPassword, ...postData } = this.registerForm.value as any;
     if (this.registerForm.valid) {
-      this.authService.registerUser(postData as RegisterPostData).subscribe({
-        next: () => this.router.navigate(['login']),
-        error: (err) => console.error(err),
-      });
+      this.authService.saveToSessionStorage<RegisterPostData>('registeredUser', postData);
+
+      // this.authService.registerUser(postData as RegisterPostData).subscribe({
+      //   next: () => this.router.navigate(['login']),
+      //   error: (err) => console.error(err),
+      // });
     }
   }
-
 
   // get passwordMismatch() {
   //   return (
