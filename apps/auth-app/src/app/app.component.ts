@@ -16,5 +16,5 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-18-primeng-app';
+  title = 'auth';
 }

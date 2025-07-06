@@ -1,53 +1,43 @@
-// register.component.ts
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
-  ReactiveFormsModule,
   Validators,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { RegisterPostData } from '../../interfaces/auth';
+import { passwordMismatchValidator } from '../../shared/password-mismatch.directive';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
-import { passwordMismatchValidator } from '../../shared/password-mismatch.directive';
-import { AuthService } from '../../services/auth.service';
-import { RegisterPostData } from '../../interfaces/auth';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-register-material',
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    RouterLink,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule,
-    RouterLink,
     NgIf,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  private registerService = inject(AuthService);
-  private snackBar = inject(MatSnackBar);
+  private authService = inject(AuthService);
   private router = inject(Router);
-
-  // for password visibility toggle
-  showPassword = false;
-  showConfirmPassword = false;
 
   registerForm = new FormGroup(
     {
-      fullName: new FormControl('', [Validators.required]),
       email: new FormControl('', [
         Validators.required,
         Validators.pattern(/[a-z0-9\._%\+\-]+@[a-z0-9\.\-]+\.[a-z]{2,}$/),
@@ -57,40 +47,51 @@ export class RegisterComponent {
     },
     {
       validators: passwordMismatchValidator,
+      updateOn: 'change',
     }
   );
 
-  onRegister() {
-    const postData = { ...this.registerForm.value };
-    delete (postData as any).confirmPassword;
+  hidePassword = signal(true);
+  hideConfirmPassword = signal(true);
 
-    this.registerService.registerUser(postData as RegisterPostData).subscribe({
-      next: (response) => {
-        this.snackBar.open('Registered successfully', 'Close', {
-          duration: 3000,
-        });
-        this.router.navigate(['login']);
-        console.log(response);
-      },
-      error: (err) => {
-        console.log(err);
-        this.snackBar.open('Something went wrong', 'Close', {
-          duration: 3000,
-        });
-      },
-    });
+  togglePassword(event: MouseEvent): void {
+    event.preventDefault();
+    this.hidePassword.set(!this.hidePassword());
   }
 
-  get fullName() {
-    return this.registerForm.controls['fullName'];
+  toggleConfirmPassword(event: MouseEvent): void {
+    event.preventDefault();
+    this.hideConfirmPassword.set(!this.hideConfirmPassword());
   }
+
+  onRegister(): void {
+    this.registerForm.markAllAsTouched();
+
+    const { confirmPassword, ...postData } = this.registerForm.value as any;
+    if (this.registerForm.valid) {
+      this.authService.registerUser(postData as RegisterPostData).subscribe({
+        next: () => this.router.navigate(['login']),
+        error: (err) => console.error(err),
+      });
+    }
+  }
+
+  // get passwordMismatch() {
+  //   return (
+  //     this.registerForm.hasError('passwordMismatch') &&
+  //     this.confirmPassword.touched
+  //   );
+  // }
+
   get email() {
-    return this.registerForm.controls['email'];
+    return this.registerForm.get('email')!;
   }
+
   get password() {
-    return this.registerForm.controls['password'];
+    return this.registerForm.get('password')!;
   }
+
   get confirmPassword() {
-    return this.registerForm.controls['confirmPassword'];
+    return this.registerForm.get('confirmPassword')!;
   }
 }
