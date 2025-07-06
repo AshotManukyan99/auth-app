@@ -61,7 +61,7 @@
         <!--          Passwords do not match-->
         <!--        </mat-error>-->
 
-        <!--   here use custom span because mat-error have strange problem when try seen error message    -->
+        <!--   here use custom span because <mat-error> have strange problem when try seen error message    -->
         <span class="error"
               *ngIf="registerForm.hasError('passwordMismatch') && (confirmPassword.dirty || confirmPassword.touched)">
                  Passwords do not match
