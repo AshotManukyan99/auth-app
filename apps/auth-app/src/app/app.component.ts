@@ -1,14 +1,20 @@
+// app.component.ts
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { RouterOutlet } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
-  standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
   selector: 'app-root',
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    MatButtonModule,
+    MatSnackBarModule
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'auth-app';
+  title = 'angular-18-primeng-app';
 }
