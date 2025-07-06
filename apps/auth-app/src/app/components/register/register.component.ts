@@ -76,6 +76,7 @@ export class RegisterComponent {
     }
   }
 
+
   // get passwordMismatch() {
   //   return (
   //     this.registerForm.hasError('passwordMismatch') &&

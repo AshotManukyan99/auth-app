@@ -1,9 +1,9 @@
-import { Component, signal, effect } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 
 import { RegisterComponent } from '../../components/register/register.component';
-import { LoginComponent } from '../../components/login/login.component';
+import { IndustryExperienceComponent } from '../../components/personal-info/personal-info';
 
 @Component({
   selector: 'app-auth-stepper',
@@ -12,13 +12,13 @@ import { LoginComponent } from '../../components/login/login.component';
     MatStepperModule,
     MatButtonModule,
     RegisterComponent,
-    LoginComponent,
+    IndustryExperienceComponent,
   ],
   templateUrl: './auth-stepper.html',
   styleUrl: './auth-stepper.scss',
 })
 export class AuthStepperComponent {
-  currentStep = signal(0);
+  currentStep = signal(1);
 
   constructor() {
     effect(() => {

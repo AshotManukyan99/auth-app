@@ -1,0 +1,38 @@
+<div class="register-container">
+  <mat-card>
+    <mat-card-title class="title">Your Industry Experience</mat-card-title>
+    <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+        <mat-label>Industry</mat-label>
+        <mat-select formControlName="industry">
+          <mat-option *ngFor="let industry of industries" [value]="industry.value">
+            {{ industry.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Years of Experience</mat-label>
+        <input matInput formControlName="years" type="number" placeholder="e.g. 5" />
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Your Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let role of roles" [value]="role.value">{{ role.label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        type="submit"
+      >
+        Save
+      </button>
+
+      <div class="success-msg" *ngIf="submitted()">Thanks, saved!</div>
+    </form>
+  </mat-card>
+</div>
