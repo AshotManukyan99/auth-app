@@ -19,7 +19,6 @@ import { AboutUsComponent } from '../../components/about-us/about-us';
   templateUrl: './auth-stepper.html',
   styleUrl: './auth-stepper.scss',
 })
-
 export class AuthStepperComponent {
   currentStep = signal(0);
   private router = inject(Router);
@@ -47,7 +46,13 @@ export class AuthStepperComponent {
       relativeTo: this.route,
       queryParams: { step: index },
       queryParamsHandling: 'merge',
-      replaceUrl: true  ,
+      replaceUrl: true,
     });
+  }
+
+  onRegisterFormSubmitted() {
+    const nextStep = Math.min(this.currentStep() + 1, 2);
+    console.log(nextStep, 'nextStep');
+    this.setStep(nextStep);
   }
 }

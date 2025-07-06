@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -30,6 +30,8 @@ export class AboutUsComponent {
     aboutUs: new FormControl('', [Validators.required]),
   });
 
+  @Output() formSubmitted = new EventEmitter<void>();
+
   submitted = signal(false);
 
   onSubmit(): void {
@@ -38,7 +40,10 @@ export class AboutUsComponent {
       // Reset form after submission
       this.aboutUsForm.reset();
       // Optionally clear the success message after a delay
-      setTimeout(() => this.submitted.set(false), 3000);
+      setTimeout(() => {
+        this.submitted.set(false);
+        this.formSubmitted.emit();
+      }, 3000);
     }
   }
 

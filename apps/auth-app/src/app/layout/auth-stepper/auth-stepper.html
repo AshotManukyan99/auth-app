@@ -1,13 +1,13 @@
 <mat-horizontal-stepper [selectedIndex]="currentStep()" (selectionChange)="setStep($event.selectedIndex)">
   <mat-step label="Register">
-    <app-register></app-register>
+    <app-register (formSubmitted)="onRegisterFormSubmitted()"></app-register>
     <div class="button-container">
       <button mat-raised-button color="primary" matStepperNext>Next</button>
     </div>
   </mat-step>
 
   <mat-step label="Industry">
-    <app-industry-experience></app-industry-experience>
+    <app-industry-experience (formSubmitted)="onRegisterFormSubmitted()"></app-industry-experience>
     <div class="button-container">
       <button class="mat-mdc-stroked-button" matStepperPrevious>Back</button>
       <button mat-raised-button color="primary" matStepperNext>Next</button>
@@ -15,10 +15,10 @@
   </mat-step>
 
   <mat-step label="About Us">
-    <app-about-us></app-about-us>
+    <app-about-us (formSubmitted)="onRegisterFormSubmitted()"></app-about-us>
     <div class="button-container">
       <button class="mat-mdc-stroked-button" matStepperPrevious>Back</button>
-      <button mat-raised-button color="primary" (click)="setStep(0)">Finish</button>
+      <button mat-raised-button color="primary" (click)=" setStep(0)">Finish</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

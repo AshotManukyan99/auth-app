@@ -1,4 +1,4 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, Output, EventEmitter } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -50,6 +50,8 @@ interface ExperienceFormData {
 export class IndustryExperienceComponent {
   private authService = inject(AuthService);
 
+  @Output() formSubmitted = new EventEmitter<void>();
+
   experienceForm = new FormGroup({
     industry: new FormControl('', [Validators.required]),
     years: new FormControl('', [
@@ -85,6 +87,7 @@ export class IndustryExperienceComponent {
         formData
       );
       this.submitted.set(true);
+      this.formSubmitted.emit();
       setTimeout(() => {
         this.submitted.set(true);
         this.experienceForm.reset();

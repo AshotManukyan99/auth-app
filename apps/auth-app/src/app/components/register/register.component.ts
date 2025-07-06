@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, Output, EventEmitter } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -36,6 +36,8 @@ export class RegisterComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
+  @Output() formSubmitted = new EventEmitter<void>();
+
   registerForm = new FormGroup(
     {
       email: new FormControl('', [
@@ -69,8 +71,11 @@ export class RegisterComponent {
 
     const { confirmPassword, ...postData } = this.registerForm.value as any;
     if (this.registerForm.valid) {
-      this.authService.saveToSessionStorage<RegisterPostData>('registeredUser', postData);
-
+      this.authService.saveToSessionStorage<RegisterPostData>(
+        'registeredUser',
+        postData
+      );
+      this.formSubmitted.emit();
       // this.authService.registerUser(postData as RegisterPostData).subscribe({
       //   next: () => this.router.navigate(['login']),
       //   error: (err) => console.error(err),

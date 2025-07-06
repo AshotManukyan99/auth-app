@@ -25,7 +25,6 @@ export class AuthService {
   saveToSessionStorage<T>(key: string, data: T): void {
     // Save any data to sessionStorage as JSON string
     sessionStorage.setItem(key, JSON.stringify(data));
-    // this.authStepper.setStep()
   }
 
   getUserDetails(email: string, password: string): Observable<User[]> {
