@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { RegisterComponent } from '../../components/register/register.component';
 import { IndustryExperienceComponent } from '../../components/personal-info/personal-info';
+import { AboutUsComponent } from '../../components/about-us/about-us';
 
 @Component({
   selector: 'app-auth-stepper',
@@ -13,6 +14,7 @@ import { IndustryExperienceComponent } from '../../components/personal-info/pers
     MatButtonModule,
     RegisterComponent,
     IndustryExperienceComponent,
+    AboutUsComponent,
   ],
   templateUrl: './auth-stepper.html',
   styleUrl: './auth-stepper.scss',

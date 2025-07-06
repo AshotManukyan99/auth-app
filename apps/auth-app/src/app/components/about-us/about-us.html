@@ -1,0 +1,31 @@
+<div class="about-us-container">
+  <mat-card>
+    <mat-card-title class="title">About Us</mat-card-title>
+    <form [formGroup]="aboutUsForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="full-width">
+        <mat-label>About Us</mat-label>
+        <textarea
+          matInput
+          formControlName="aboutUs"
+          placeholder="Tell us about yourself or your organization"
+          rows="5"
+        ></textarea>
+        <mat-error *ngIf="aboutUs.hasError('required') && (aboutUs.dirty || aboutUs.touched)">
+          About Us is required
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        type="submit"
+        [disabled]="aboutUsForm.invalid"
+      >
+        Save
+      </button>
+
+      <div class="success-msg" *ngIf="submitted()">Thanks, saved!</div>
+    </form>
+  </mat-card>
+</div>
