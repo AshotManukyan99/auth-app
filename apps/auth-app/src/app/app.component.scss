@@ -1,0 +1,21 @@
+::ng-deep .mat-raised-button-color.mat-mdc-raised-button.mat-primary,
+::ng-deep .mat-raised-button-color.mat-raised-button.mat-primary {
+  background-color: #1976d2;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #1565c0;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    background-color: #b0bec5;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: not-allowed;
+    transform: none;
+  }
+}

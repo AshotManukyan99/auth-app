@@ -1,12 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { NgForOf, NgIf } from '@angular/common';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 export enum UserRole {
   Developer = 'developer',
@@ -30,8 +29,7 @@ export enum Industry {
     MatInputModule,
     MatButtonModule,
     NgIf,
-    MatSelect,
-    MatOption,
+    MatSelectModule,
     NgForOf,
   ],
   templateUrl: './personal-info.html',
@@ -39,9 +37,9 @@ export enum Industry {
 })
 export class IndustryExperienceComponent {
   experienceForm = new FormGroup({
-    industry: new FormControl(''),
-    years: new FormControl(''),
-    role: new FormControl(''),
+    industry: new FormControl('', [Validators.required]),
+    years: new FormControl('', [Validators.required, Validators.min(0), Validators.max(50)]),
+    role: new FormControl('', [Validators.required]),
   });
 
   submitted = signal(false);
@@ -60,8 +58,13 @@ export class IndustryExperienceComponent {
 
   onSubmit() {
     this.experienceForm.markAllAsTouched();
-    this.submitted.set(true);
-    setTimeout(() => this.submitted.set(false), 2000);
+    if (this.experienceForm.valid) {
+      this.submitted.set(true);
+      setTimeout(() => {
+        this.submitted.set(false);
+        this.experienceForm.reset();
+      }, 2000);
+    }
   }
 
   get industry() {

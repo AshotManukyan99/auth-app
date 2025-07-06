@@ -9,11 +9,23 @@
             {{ industry.label }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="industry.hasError('required') && (industry.dirty || industry.touched)">
+          Industry is required
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <mat-label>Years of Experience</mat-label>
         <input matInput formControlName="years" type="number" placeholder="e.g. 5" />
+        <mat-error *ngIf="years.hasError('required') && (years.dirty || years.touched)">
+          Years of Experience is required
+        </mat-error>
+        <mat-error *ngIf="years.hasError('min') && (years.dirty || years.touched)">
+          Years must be at least 0
+        </mat-error>
+        <mat-error *ngIf="years.hasError('max') && (years.dirty || years.touched)">
+          Years cannot exceed 50
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width">
@@ -21,6 +33,9 @@
         <mat-select formControlName="role">
           <mat-option *ngFor="let role of roles" [value]="role.value">{{ role.label }}</mat-option>
         </mat-select>
+        <mat-error *ngIf="role.hasError('required') && (role.dirty || role.touched)">
+          Role is required
+        </mat-error>
       </mat-form-field>
 
       <button
@@ -28,6 +43,7 @@
         color="primary"
         class="full-width mat-raised-button-color"
         type="submit"
+        [disabled]="experienceForm.invalid"
       >
         Save
       </button>

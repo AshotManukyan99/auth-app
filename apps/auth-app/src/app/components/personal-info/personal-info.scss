@@ -24,14 +24,6 @@
     margin-bottom: 18px;
   }
 
-  .mat-raised-button-color {
-    background-color: #939292;
-  }
-
-  button.full-width {
-    width: 100%;
-  }
-
   .success-msg {
     color: #388e3c;
     margin-top: 18px;
@@ -39,6 +31,11 @@
     font-weight: 500;
   }
 
+}
+
+::ng-deep .mat-mdc-form-field-error,
+::ng-deep .mat-form-field-error {
+  color: #d32f2f !important;
 }
 
 ::ng-deep .mat-mdc-select-panel {
