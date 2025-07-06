@@ -1,4 +1,11 @@
-import { Component, inject, signal, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  Output,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -32,7 +39,7 @@ import { NgIf } from '@angular/common';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
 
@@ -55,6 +62,20 @@ export class RegisterComponent {
 
   hidePassword = signal(true);
   hideConfirmPassword = signal(true);
+
+  ngOnInit() {
+    const storedData =
+      this.authService.getFromSessionStorage<RegisterPostData>(
+        'registeredUser'
+      );
+    if (storedData) {
+      this.registerForm.patchValue({
+        email: storedData.email,
+        password: storedData.password,
+        confirmPassword: storedData.password, // Set confirmPassword to match password
+      });
+    }
+  }
 
   togglePassword(event: MouseEvent): void {
     event.preventDefault();
@@ -82,13 +103,6 @@ export class RegisterComponent {
       // });
     }
   }
-
-  // get passwordMismatch() {
-  //   return (
-  //     this.registerForm.hasError('passwordMismatch') &&
-  //     this.confirmPassword.touched
-  //   );
-  // }
 
   get email() {
     return this.registerForm.get('email')!;

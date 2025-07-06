@@ -1,4 +1,11 @@
-import { Component, signal, inject, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  signal,
+  inject,
+  Output,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -27,7 +34,7 @@ export enum Industry {
 
 interface ExperienceFormData {
   industry: string;
-  years: number | null;
+  years: string; // Changed to string to match form control
   role: string;
 }
 
@@ -47,7 +54,7 @@ interface ExperienceFormData {
   templateUrl: './personal-info.html',
   styleUrls: ['./personal-info.scss'],
 })
-export class IndustryExperienceComponent {
+export class IndustryExperienceComponent implements OnInit {
   private authService = inject(AuthService);
 
   @Output() formSubmitted = new EventEmitter<void>();
@@ -76,12 +83,28 @@ export class IndustryExperienceComponent {
     { value: Industry['Financial services'], label: 'Financial Services' },
   ];
 
+    ngOnInit() {
+    const storedData =
+      this.authService.getFromSessionStorage<ExperienceFormData>(
+        'experienceData'
+      );
+    if (storedData) {
+      this.experienceForm.patchValue({
+        industry: storedData.industry,
+        years: storedData.years ? storedData.years.toString() : '', // Convert number to string
+        role: storedData.role,
+      });
+    }
+  }
+
   onSubmit() {
     this.experienceForm.markAllAsTouched();
     if (this.experienceForm.valid) {
-      const formData: ExperienceFormData = this.experienceForm
-        .value as ExperienceFormData;
-      // Save form data to sessionStorage
+      const formData: ExperienceFormData = {
+        industry: this.experienceForm.value.industry || '',
+        years: this.experienceForm.value.years || '',
+        role: this.experienceForm.value.role || '',
+      };
       this.authService.saveToSessionStorage<ExperienceFormData>(
         'experienceData',
         formData
@@ -89,7 +112,7 @@ export class IndustryExperienceComponent {
       this.submitted.set(true);
       this.formSubmitted.emit();
       setTimeout(() => {
-        this.submitted.set(true);
+        this.submitted.set(false);
         this.experienceForm.reset();
       }, 2000);
     }

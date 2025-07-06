@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, EventEmitter, Output, signal, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,6 +10,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+
+interface AboutUsFormData {
+  aboutUs: string; // Changed to string to match form control
+}
 
 @Component({
   selector: 'app-about-us',
@@ -25,7 +30,9 @@ import { NgIf } from '@angular/common';
   templateUrl: './about-us.html',
   styleUrls: ['./about-us.scss'],
 })
-export class AboutUsComponent {
+export class AboutUsComponent implements OnInit {
+  private authService = inject(AuthService);
+
   aboutUsForm = new FormGroup({
     aboutUs: new FormControl('', [Validators.required]),
   });
@@ -34,12 +41,28 @@ export class AboutUsComponent {
 
   submitted = signal(false);
 
+  constructor() {}
+
+  ngOnInit() {
+    const storedData = this.authService.getFromSessionStorage<AboutUsFormData>('aboutUsData');
+    if (storedData) {
+      this.aboutUsForm.patchValue({
+        aboutUs: storedData.aboutUs,
+      });
+    }
+  }
+
   onSubmit(): void {
+    this.aboutUsForm.markAllAsTouched();
     if (this.aboutUsForm.valid) {
+      const formData: AboutUsFormData = {
+        aboutUs: this.aboutUsForm.value.aboutUs || '',
+      };
+      this.authService.saveToSessionStorage('aboutUsData', formData);
       this.submitted.set(true);
       // Reset form after submission
       this.aboutUsForm.reset();
-      // Optionally clear the success message after a delay
+      // Clear the success message and emit event after a delay
       setTimeout(() => {
         this.submitted.set(false);
         this.formSubmitted.emit();
