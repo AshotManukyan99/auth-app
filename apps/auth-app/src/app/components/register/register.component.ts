@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-register-material',
+  selector: 'app-register',
   standalone: true,
   imports: [
     ReactiveFormsModule,
