@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Output, signal, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  signal,
+  inject,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -13,7 +20,7 @@ import { NgIf } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 
 interface AboutUsFormData {
-  aboutUs: string; // Changed to string to match form control
+  aboutUs: string;
 }
 
 @Component({
@@ -41,10 +48,9 @@ export class AboutUsComponent implements OnInit {
 
   submitted = signal(false);
 
-  constructor() {}
-
   ngOnInit() {
-    const storedData = this.authService.getFromSessionStorage<AboutUsFormData>('aboutUsData');
+    const storedData =
+      this.authService.getFromSessionStorage<AboutUsFormData>('aboutUsData');
     if (storedData) {
       this.aboutUsForm.patchValue({
         aboutUs: storedData.aboutUs,

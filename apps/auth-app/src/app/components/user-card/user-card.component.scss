@@ -1,0 +1,50 @@
+.user-card {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+
+  mat-card-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  mat-card-subtitle {
+    color: #666;
+  }
+
+  mat-card-content {
+    p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+
+      strong {
+        font-weight: 500;
+        color: #333;
+      }
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem; // Add spacing between buttons
+
+    button[mat-raised-button] {
+      background-color: #3f51b5; // Blue, matching primary button style
+      color: white;
+
+      &:hover {
+        background-color: #303f9f; // Darker blue on hover
+      }
+    }
+
+    button[mat-stroked-button] {
+      border-color: #3f51b5; // Blue border for secondary action
+      color: #3f51b5;
+
+      &:hover {
+        background-color: rgba(63, 81, 181, 0.1); // Light blue background on hover
+      }
+    }
+  }
+}

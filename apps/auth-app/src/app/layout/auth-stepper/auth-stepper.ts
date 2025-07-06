@@ -52,7 +52,10 @@ export class AuthStepperComponent {
 
   onRegisterFormSubmitted() {
     const nextStep = Math.min(this.currentStep() + 1, 2);
-    console.log(nextStep, 'nextStep');
     this.setStep(nextStep);
+  }
+
+  onAboutUsSubmitted() {
+    this.router.navigate(['/user-card']);
   }
 }

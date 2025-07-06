@@ -1,0 +1,26 @@
+<mat-card class="user-card">
+  <mat-card-header>
+    <mat-card-title>User Information</mat-card-title>
+    <mat-card-subtitle>Your registration details</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="userData; else noData">
+      <p><strong>Email:</strong> {{ userData.email }}</p>
+    </div>
+    <div *ngIf="experienceData; else noData">
+      <p><strong>Industry:</strong> {{ experienceData.industry | titlecase }}</p>
+      <p><strong>Years of Experience:</strong> {{ experienceData.years }}</p>
+      <p><strong>Role:</strong> {{ experienceData.role | titlecase }}</p>
+    </div>
+    <div *ngIf="aboutUsData; else noData">
+      <p><strong>About You:</strong> {{ aboutUsData.aboutUs }}</p>
+    </div>
+    <ng-template #noData>
+      <p>No data available.</p>
+    </ng-template>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-stroked-button color="primary" (click)="logout()">Logout</button>
+    <button mat-raised-button color="primary" (click)="clearData()">Clear Data & Restart</button>
+  </mat-card-actions>
+</mat-card>
