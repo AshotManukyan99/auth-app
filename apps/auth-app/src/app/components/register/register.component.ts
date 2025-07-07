@@ -23,6 +23,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
 
+// Define interface for form value
+interface RegisterFormData {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -90,17 +97,13 @@ export class RegisterComponent implements OnInit {
   onRegister(): void {
     this.registerForm.markAllAsTouched();
 
-    const { confirmPassword, ...postData } = this.registerForm.value as any;
     if (this.registerForm.valid) {
+      const { ...postData } = this.registerForm.value as RegisterFormData;
       this.authService.saveToSessionStorage<RegisterPostData>(
         'registeredUser',
         postData
       );
       this.formSubmitted.emit();
-      // this.authService.registerUser(postData as RegisterPostData).subscribe({
-      //   next: () => this.router.navigate(['login']),
-      //   error: (err) => console.error(err),
-      // });
     }
   }
 

@@ -34,7 +34,7 @@ export enum Industry {
 
 interface ExperienceFormData {
   industry: string;
-  years: string; // Changed to string to match form control
+  years: string;
   role: string;
 }
 
@@ -83,7 +83,7 @@ export class IndustryExperienceComponent implements OnInit {
     { value: Industry['Financial services'], label: 'Financial Services' },
   ];
 
-    ngOnInit() {
+  ngOnInit() {
     const storedData =
       this.authService.getFromSessionStorage<ExperienceFormData>(
         'experienceData'

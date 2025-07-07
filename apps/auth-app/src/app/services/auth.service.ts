@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RegisterPostData } from '../interfaces/auth';
+import { RegisterPostData, User } from '../interfaces/auth';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class AuthService {
     return storedData ? JSON.parse(storedData) : null;
   }
 
-  getUserDetails(email: string, password: string): Observable<any> {
+  getUserDetails(email: string, password: string): Observable<User[]> {
     const storedUser =
       this.getFromLocalStorage<RegisterPostData>('registeredUser');
     if (
