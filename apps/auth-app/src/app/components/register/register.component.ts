@@ -23,7 +23,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
 
-// Define interface for form value
 interface RegisterFormData {
   email: string;
   password: string;

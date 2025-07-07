@@ -19,18 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgForOf, NgIf } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../services/auth.service';
-
-export enum UserRole {
-  Developer = 'developer',
-  Manager = 'manager',
-  Designer = 'designer',
-}
-
-export enum Industry {
-  Marketing = 'marketing',
-  IT = 'it',
-  'Financial services' = 'financial_services',
-}
+import { Industry, UserRole } from '../../helpers';
 
 interface ExperienceFormData {
   industry: string;
