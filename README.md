@@ -1,5 +1,68 @@
 # MyMonorepos
 
+<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer">
+  <img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45">
+</a>
+
+✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+
+[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)  
+or run `npx nx graph` to visually explore what was created.
+
+---
+
+## 📦 Running with Docker
+
+To run the project inside a Docker container:
+
+1. **Ensure Docker is installed and running locally**
+
+   You can download Docker from [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+
+2. **Build the Docker image**
+
+   ```sh
+   docker build -t auth-app .
+   
+3. 🚀 Run the Docker container
+
+docker run -d -p 8080:80 auth-app
+
+4. Verify the container is running
+   ```sh
+   docker ps
+5. After that check this port manually <http://localhost:8080>  
+
+# MyMonorepos
+
+<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+
+✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+
+[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+
+---
+
+## 🚀 Running the Project Without Docker
+
+If you’re running this project **outside Docker** (e.g. after cloning the repo), follow these steps:
+
+1. **Switch Node.js version using `nvm`**  
+   Make sure you have `nvm` installed, then run:
+
+   ```sh
+   nvm use
+   
+2. Install dependencies using Yarn
+Always use Yarn in this workspace:
+
+3. Start the development server with Nx
+npx nx serve auth-app
+
+<--------------------->
+
+# MyMonorepos
+
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
 ✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
