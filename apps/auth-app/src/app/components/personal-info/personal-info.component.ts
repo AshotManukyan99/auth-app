@@ -51,8 +51,8 @@ interface ExperienceFormData {
     MatSelectModule,
     NgForOf,
   ],
-  templateUrl: './personal-info.html',
-  styleUrls: ['./personal-info.scss'],
+  templateUrl: './personal-info.component.html',
+  styleUrls: ['./personal-info.component.scss'],
 })
 export class IndustryExperienceComponent implements OnInit {
   private authService = inject(AuthService);

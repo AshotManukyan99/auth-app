@@ -3,8 +3,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RegisterComponent } from '../../components/register/register.component';
-import { IndustryExperienceComponent } from '../../components/personal-info/personal-info';
-import { AboutUsComponent } from '../../components/about-us/about-us';
+import { IndustryExperienceComponent } from '../../components/personal-info/personal-info.component';
+import { AboutUsComponent } from '../../components/about-us/about-us.component';
 import { AuthService } from '../../services/auth.service';
 import { RegisterPostData } from '../../interfaces/auth';
 
@@ -36,10 +36,10 @@ export class AuthStepperComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private authService = inject(AuthService);
-  private totalSteps = 3; // Total number of steps (Register, Industry, About Us)
+  private totalSteps = 3;
 
   constructor() {
-    // Initialize currentStep from URL query parameter
+    // initialize currentStep from URL query parameter
     this.route.queryParams.subscribe((params) => {
       const step = params['step'];
       if (step !== undefined && !isNaN(+step)) {

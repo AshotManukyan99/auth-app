@@ -6,14 +6,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  registerUser(postData: RegisterPostData): Observable<any> {
-    // Save email and password to localStorage
-    this.saveToLocalStorage('registeredUser', postData);
-    return of({ success: true }); // Simulate successful registration
-  }
-
   saveToSessionStorage<T>(key: string, data: T): void {
-    // Save any data to sessionStorage as JSON string
     sessionStorage.setItem(key, JSON.stringify(data));
   }
 
@@ -23,7 +16,6 @@ export class AuthService {
   }
 
   saveToLocalStorage<T>(key: string, data: T): void {
-    // Save any data to localStorage as JSON string
     localStorage.setItem(key, JSON.stringify(data));
   }
 

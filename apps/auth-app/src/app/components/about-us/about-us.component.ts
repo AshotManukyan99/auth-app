@@ -34,8 +34,8 @@ interface AboutUsFormData {
     MatButtonModule,
     NgIf,
   ],
-  templateUrl: './about-us.html',
-  styleUrls: ['./about-us.scss'],
+  templateUrl: './about-us.component.html',
+  styleUrls: ['./about-us.component.scss'],
 })
 export class AboutUsComponent implements OnInit {
   private authService = inject(AuthService);
