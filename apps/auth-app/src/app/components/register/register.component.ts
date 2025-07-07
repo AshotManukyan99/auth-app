@@ -72,7 +72,7 @@ export class RegisterComponent implements OnInit {
       this.registerForm.patchValue({
         email: storedData.email,
         password: storedData.password,
-        confirmPassword: storedData.password, // Set confirmPassword to match password
+        confirmPassword: storedData.password,
       });
     }
   }

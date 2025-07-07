@@ -45,30 +45,25 @@ export class UserCardComponent implements OnInit {
   }
 
   clearData() {
-    // Clear sessionStorage
     sessionStorage.removeItem('registeredUser');
     sessionStorage.removeItem('experienceData');
     sessionStorage.removeItem('aboutUsData');
-    // Clear localStorage
+
     localStorage.clear();
-    // Reset component data
+
     this.userData = null;
     this.experienceData = null;
     this.aboutUsData = null;
-    // Navigate back to stepper
-    this.router.navigate(['/auth-stepper']);
+    this.router.navigate(['/auth']);
   }
 
   logout() {
-    // Clear only sessionStorage
     sessionStorage.removeItem('registeredUser');
     sessionStorage.removeItem('experienceData');
     sessionStorage.removeItem('aboutUsData');
-    // Reset component data
     this.userData = null;
     this.experienceData = null;
     this.aboutUsData = null;
-    // Navigate back to stepper
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
   }
 }

@@ -1,24 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RegisterPostData, User } from '../interfaces/auth';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { RegisterPostData } from '../interfaces/auth';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000';
-
-  constructor(private http: HttpClient) {}
-
   registerUser(postData: RegisterPostData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/users`, postData).pipe(
-      tap((response) => {
-        // Save email and password to sessionStorage
-        this.saveToSessionStorage('registeredUser', postData);
-      })
-    );
+    // Save email and password to localStorage
+    this.saveToLocalStorage('registeredUser', postData);
+    return of({ success: true }); // Simulate successful registration
   }
 
   saveToSessionStorage<T>(key: string, data: T): void {
@@ -31,9 +22,26 @@ export class AuthService {
     return storedData ? JSON.parse(storedData) : null;
   }
 
-  getUserDetails(email: string, password: string): Observable<User[]> {
-    return this.http.get<User[]>(
-      `${this.baseUrl}/users?email=${email}&password=${password}`
-    );
+  saveToLocalStorage<T>(key: string, data: T): void {
+    // Save any data to localStorage as JSON string
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  getFromLocalStorage<T>(key: string): T | null {
+    const storedData = localStorage.getItem(key);
+    return storedData ? JSON.parse(storedData) : null;
+  }
+
+  getUserDetails(email: string, password: string): Observable<any> {
+    const storedUser =
+      this.getFromLocalStorage<RegisterPostData>('registeredUser');
+    if (
+      storedUser &&
+      storedUser.email === email &&
+      storedUser.password === password
+    ) {
+      return of([{ email, password }]);
+    }
+    return of([]);
   }
 }
